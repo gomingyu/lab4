@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>春韵数字展销平台</title>
+    <link rel="stylesheet" href="css/lab4-1-005-index.css">
+</head>
+<body>
+    <div class="login-modal" id="loginBox">
+        <div class="login-con">
+            <span class="close-btn" onclick="closeLogin()">×</span>
+            <h3>用户登录 / 注册</h3>
+            <input type="text" id="username" placeholder="请输入用户名">
+            <input type="password" id="password" placeholder="请输入密码">
+            <div class="login-btn" id="loginBtn">登录</div>
+            <div class="reg-btn" id="registerBtn">注册</div>
+        </div>
+    </div>
+
+    <div class="fixed-btn">TOP</div>
+    <div class="header">
+        <div class="logo">
+            <img src="img/p8.jpg" alt="春韵展销">
+        </div>
+        <div class="nav">
+            <a href="#">首页</a>
+            <a href="#">图书分类</a>
+            <a href="#">新书推荐</a>
+            <a href="#">优惠活动</a>
+            <a href="#">联系我们</a>
+            <a href="javascript:openLogin()" class="login-link">登录</a>
+            <div class="cart">🛒 购物车</div>
+            <!-- 新增：搜索图标 无文字 -->
+            <div class="search">🔍</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">
+            <h3>图书分类导航</h3>
+            <ul>
+                <li>文学小说</li>
+                <li>经管励志</li>
+                <li>科技计算机</li>
+                <li>教育教辅</li>
+                <li>历史人文</li>
+                <li>艺术设计</li>
+            </ul>
+        </div>
+        <div class="middle">
+            <div class="four-box">
+                <div class="four-item">
+                    <img src="img/p4.jpg" alt="">
+                    <div class="four-text">《人生海海》麦家高分代表作</div>
+                </div>
+                <div class="four-item">
+                    <img src="img/p5.jpg" alt="">
+                    <div class="four-text">《朝花夕拾》鲁迅经典散文集</div>
+                </div>
+                <div class="four-item">
+                    <img src="img/p6.jpg" alt="">
+                    <div class="four-text">《追风筝的人》关于救赎与勇气</div>
+                </div>
+                <div class="four-item">
+                    <img src="img/p7.jpg" alt="">
+                    <div class="four-text">《百年孤独》马尔克斯传世巨著</div>
+                </div>
+            </div>
+            <div class="section-title">🔥 热门推荐</div>
+            <div class="hot-book">
+                <div class="book-item"><img src="img/p1.jpg" alt=""></div>
+                <div class="book-item"><img src="img/p2.jpg" alt=""></div>
+                <div class="book-item"><img src="img/p3.jpg" alt=""></div>
+            </div>
+            <div class="section-title">📚 新书上市</div>
+            <div class="new-book">
+                <table>
+                    <tr><th>书名</th><th>作者</th><th>价格</th></tr>
+                    <tr><td>残月记</td><td>李凤群</td><td>58.00</td></tr>
+                    <tr><td>白魔鬼的女儿们</td><td>雅阿·吉亚西</td><td>68.00</td></tr>
+                    <tr><td>秦二世必须死</td><td>刘勃</td><td>49.00</td></tr>
+                </table>
+            </div>
+            <div class="section-title">🎠 图书轮播</div>
+            <div class="carousel-box">
+                <div class="carousel-wrap">
+                    <img src="img/p9.jpg.png" alt="">
+                    <img src="img/p10.jpg.png" alt="">
+                    <img src="img/p11.jpg.png" alt="">
+                    <img src="img/p12.jpg.png" alt="">
+                    <img src="img/p13.jpg.png" alt="">
+                    <img src="img/p14.jpg.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="sale-tag">限时特惠</div>
+            <h3>促销活动专区</h3>
+            <div class="hide-demo">
+                <p class="hide-box">鼠标悬停查看隐藏福利</p>
+                <p class="show-tip">全场满99减30！</p>
+            </div>
+            <ul style="margin-top:20px;line-height:2.2;list-style:none;">
+                <li>新人专享5元券</li>
+                <li>满200减50</li>
+                <li>会员折扣专区</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer">春韵数字展销平台 版权所有 © 2026</div>
+<script>
+function openLogin(){
+    document.getElementById('loginBox').style.display = 'block';
+}
+function closeLogin(){
+    document.getElementById('loginBox').style.display = 'none';
+}
+document.getElementById('loginBtn').addEventListener('click', login);
+document.getElementById('registerBtn').addEventListener('click', register);
+function register() {
+    let username = document.getElementById('username').value.trim();
+    let password = document.getElementById('password').value.trim();
+    if (!username || !password) {
+        alert('请输入用户名和密码');
+        return;
+    }
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+    
+    if (users[username]) {
+        alert('用户名已存在');
+        return;
+    }
+    users
+[username] = password;
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('注册成功');
+
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+}
+function login() {
+    let username = document.getElementById('username').value.trim();
+    let password = document.getElementById('password').value.trim();
+    
+    if (!username || !password) {
+        alert('请输入用户名和密码');
+        return;
+    }
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+    if (users[username] === password) {
+        alert('登录成功');
+        closeLogin();
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    } else {
+        alert('用户名或密码错误');
+    }
+}
+</script>
+</body>
+</html>
